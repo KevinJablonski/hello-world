@@ -1,49 +1,73 @@
-### welcome_assignment_answers
-### Input - All nine questions given in the assignment.
-### Output - The right answer for the specific question.
-
-def welcome_assignment_answers(question):
-    #Students do not have to follow the skeleton for this assignment.
-    #Another way to implement is using a "case" statements similar to C.
-    if question == "In Slack, what is the secret passphrase posted in the #lab-python-getting-started channel posted by a TA?":
-        answer = "mtls"
-    elif question == "Are encoding and encryption the same? - Yes/No":
-        answer = "No"
-    elif question == "Is it possible to decrypt a message without a key? - Yes/No":
-        answer = "No"
-    elif question == "Is it possible to decode a message without a key? - Yes/No":
-        answer = "Yes"
-    elif question == "Is a hashed message supposed to be un-hashed? - Yes/No":
-        answer = "No"
-    elif question == "What is the SHA1 hashing value to the following message: 'NYU Computer Networking' - Use SHA1 hash generator and use the answer in your code":
-        answer = "8496abe9fceb5aa927e28bfbd9a2347d1290ef9b"
-    elif question == "Is MD5 a secured hashing algorithm? - Yes/No":
-        answer = "No"
-    elif question == "What layer of the TCP/IP model does the protocol DNS belong to? - The answer should be an integer number":
-        answer = int(5)
-    elif question == "What layer of the TCP/IP model does the protocol ICMP belong to? - The answer should be an integer number":
-        answer = int(3)
-
-    else:
-        ### you should understand why this else case should be included
-        ### what happens if there is a typo in one of the questions?
-        answer = ""
-    return(answer)
-# Complete all the questions.
+from socket import *
 
 
-if __name__ == "__main__":
-    #use this space to debug and verify that the program works
-    debug_question = "Are encoding and encryption the same? - Yes/No"
-    print(welcome_assignment_answers(debug_question))
+def smtp_client(port=1025, mailserver='127.0.0.1'):
+    msg = "\r\n My message"
+    endmsg = "\r\n.\r\n"
 
-#Questions:
-#"In Slack, what is the secret passphrase posted in the #lab-python-getting-started channel posted by a TA?":
-#"Are encoding and encryption the same? - Yes/No":
-#"Is it possible to decrypt a message without a key? - Yes/No":
-#"Is it possible to decode a message without a key? - Yes/No":
-#"Is a hashed message supposed to be un-hashed? - Yes/No":
-#"What is the SHA1 hashing value to the following message: 'NYU Computer Networking' - Use SHA1 hash generator and use the answer in your code":
-#"Is MD5 a secured hashing algorithm? - Yes/No":
-#"What layer of the TCP/IP model does the protocol DNS belong to? - The answer should be an integer number":
-#"What layer of the TCP/IP model does the protocol ICMP belong to? - The answer should be an integer number":
+    # Choose a mail server (e.g. Google mail server) if you want to verify the script beyond GradeScope
+
+    # Create socket called clientSocket and establish a TCP connection with mailserver and port
+
+    # Fill in start
+    clientSocket = socket(AF_INET, SOCK_STREAM)
+    clientSocket.connect((mailserver, port))
+    # Fill in end
+
+    recv = clientSocket.recv(1024).decode()
+    #print(recv) #You can use these print statement to validate return codes from the server.
+    #if recv[:3] != '220':
+    #    print('220 reply not received from server.')
+
+    # Send HELO command and print server response.
+    heloCommand = 'HELO Alice\r\n'
+    clientSocket.send(heloCommand.encode())
+    recv1 = clientSocket.recv(1024).decode()
+    #print(recv1)
+    #if recv1[:3] != '250':
+    #    print('250 reply not received from server.')
+
+    # Send MAIL FROM command and handle server response.
+    # Fill in start
+    mailfromCommand = 'MAIL FROM: <Alice>\r\n'
+    clientSocket.send(mailfromCommand.encode())
+    recv2 = clientSocket.recv(1024).decode()
+    # Fill in end
+
+    # Send RCPT TO command and handle server response.
+    # Fill in start
+    rcptCommand = 'RCPT TO: <kj2304@nyu.edu>\r\n'
+    clientSocket.send(rcptCommand.encode())
+    recv3 = clientSocket.recv(1024).decode()
+    # Fill in end
+
+    # Send DATA command and handle server response.
+    # Fill in start
+    dataCommand = 'DATA\r\n'
+    clientSocket.send(dataCommand.encode())
+    recv4 = clientSocket.recv(1024).decode()
+    # Fill in end
+
+    # Send message data.
+    # Fill in start
+    msgCommand = 'Hello NYU\r\n'
+    clientSocket.send(msgCommand.encode())
+    # Fill in end
+
+    # Message ends with a single period, send message end and handle server response.
+    # Fill in start
+    msg2Command = '.\r\n'
+    clientSocket.send(msg2Command.encode())
+    recv5 = clientSocket.recv(1024).decode()
+    # Fill in end
+
+    # Send QUIT command and handle server response.
+    # Fill in start
+    quitCommand = 'QUIT\r\n'
+    clientSocket.send(quitCommand.encode())
+    recv6 = clientSocket.recv(1024).decode()
+    # Fill in end
+
+
+if __name__ == '__main__':
+    smtp_client(1025, '127.0.0.1')
