@@ -55,10 +55,17 @@ def receiveOnePing(mySocket, ID, timeout, destAddr):
             return 'Type and Code must be zero'
         if ID != Id:
             return 'ID must match'
-        sendT = struct.unpack('d', recPacket[28:])
+        sendT, = struct.unpack('d', recPacket[28:])
         rtt = (timeReceived - sendT) * 1000
-        return 'rtt'.format(rtt)
-        
+
+        LengthInBytes = len(recPacket) - 20
+
+        ip = struct.unpack('!BBHHHBBH4s4s', recPacket[:20])
+        ttl = ip[5]
+        return rtt, (LengthInBytes, ttl)
+        #'Length={}: Time={}'.format(LengthInBytes, rtt)
+
+
         # Fill in end
         timeLeft = timeLeft - howLongInSelect
         if timeLeft <= 0:
@@ -121,18 +128,22 @@ def ping(host, timeout=1):
 
     for i in range(0, 4):  # Four pings will be sent (loop runs for i=0, 1, 2, 3)
         delay, statistics = doOnePing(dest, timeout)  # what is stored into delay and statistics?
-        response =  # store your bytes, rtt, and ttle here in your response pandas dataframe. An example is commented out below for vars
+        #rint(delay)
+        #print(statistics)
+        response = response.append({'bytes': str(statistics[0]), 'rtt': float(delay), 'ttl': str(statistics[1])}, ignore_index =True)
+        # store your bytes, rtt, and ttle here in your response pandas dataframe. An example is commented out below for vars
         print(delay)
+       # print(response)
         time.sleep(1)  # wait one second
 
     packet_lost = 0
     packet_recv = 0
     # fill in start. UPDATE THE QUESTION MARKS
-    for index, row in response.iterrows():
-        if ???? == 0:  # access your response df to determine if you received a packet or not
-            packet_lost =  # ????
-        else:
-            packet_recv =  # ????
+    #for index, row in response.iterrows():
+     #   if ???? == 0:  # access your response df to determine if you received a packet or not
+     #       packet_lost =  # ????
+    #    else:
+     #       packet_recv =  # ????
     # fill in end
 
     # You should have the values of delay for each ping here structured in a pandas dataframe;
@@ -147,3 +158,4 @@ def ping(host, timeout=1):
 
 if __name__ == '__main__':
     ping("google.com")
+
