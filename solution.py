@@ -51,6 +51,14 @@ def receiveOnePing(mySocket, ID, timeout, destAddr):
         # Fetch the ICMP header from the IP packet
         IcmpHeader = recPacket[20:28]
         Type, Code, CheckSum, Id, Seq = struct.unpack("bbHHh", IcmpHeader)
+        if Type == Code != 0:
+            return 'Type and Code must be zero'
+        if ID != Id:
+            return 'ID must match'
+        sendT = struct.unpack('d', recPacket[28:])
+        rtt = (timeReceived - sendT) * 1000
+        return 'rtt'.format(rtt)
+        
         # Fill in end
         timeLeft = timeLeft - howLongInSelect
         if timeLeft <= 0:
