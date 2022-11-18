@@ -98,7 +98,7 @@ def get_route(hostname):
                 if whatReady[0] == []: # Timeout
                     #Fill in start
                     #append response to your dataframe including hop #, try #, and "Timeout" responses as required by the acceptance criteria
-                    df = df.append({'Hop Count': str(ttl), 'Try': str(TRIES), 'IP': str('timeout'),'Hostname': str('timeout'),'Response Code': str('timeout?')},
+                    df = df.append({'Hop Count': str(ttl), 'Try': str(TRIES), 'IP': str('timeout'),'Hostname': str('timeout'),'Response Code': str('timeout')},
                         ignore_index=True)
                     print (df)
                     #Fill in end
@@ -110,7 +110,7 @@ def get_route(hostname):
                     #append response to your dataframe including hop #, try #, and "Timeout" responses as required by the acceptance criteria
                     df = df.append(
                         {'Hop Count': str(ttl), 'Try': str(TRIES), 'IP': str('timeout'), 'Hostname': str('timeout'),
-                         'Response Code': str('timeout?')},
+                         'Response Code': str('timeout')},
                         ignore_index=True)
                     print (df)
                     #Fill in end
