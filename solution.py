@@ -98,7 +98,7 @@ def get_route(hostname):
                 if whatReady[0] == []: # Timeout
                     #Fill in start
                     #append response to your dataframe including hop #, try #, and "Timeout" responses as required by the acceptance criteria
-                    df = df.append({'Hop #': str(ttl), 'Try #': str(tries), 'IP': str('timeout'),'Hostname': str('timeout'),'Response Code': str('timeout?')},
+                    df = df.append({'Hop Count': str(ttl), 'Try': str(TRIES), 'IP': str('timeout'),'Hostname': str('timeout'),'Response Code': str('timeout?')},
                         ignore_index=True)
                     print (df)
                     #Fill in end
@@ -109,7 +109,7 @@ def get_route(hostname):
                     #Fill in start
                     #append response to your dataframe including hop #, try #, and "Timeout" responses as required by the acceptance criteria
                     df = df.append(
-                        {'Hop #': str(ttl), 'Try #': str(tries), 'IP': str('timeout'), 'Hostname': str('timeout'),
+                        {'Hop Count': str(ttl), 'Try': str(TRIES), 'IP': str('timeout'), 'Hostname': str('timeout'),
                          'Response Code': str('timeout?')},
                         ignore_index=True)
                     print (df)
@@ -142,7 +142,7 @@ def get_route(hostname):
                     #Fill in start
                     #You should update your dataframe with the required column field responses here
                     df = df.append(
-                        {'Hop #': str(ttl), 'Try #': str(TRIES), 'IP': str(addr[0]), 'Hostname': str(Hostname[0]),
+                        {'Hop Count': str(ttl), 'Try': str(TRIES), 'IP': str(addr[0]), 'Hostname': str(Hostname[0]),
                          'Response Code': str('11')},
                         ignore_index=True)
                     print(df)
@@ -153,7 +153,7 @@ def get_route(hostname):
                     #Fill in start
                     #You should update your dataframe with the required column field responses here
                     df = df.append(
-                        {'Hop #': str(ttl), 'Try #': str(TRIES), 'IP': str(addr[0]), 'Hostname': str(Hostname[0]),
+                        {'Hop Count': str(ttl), 'Try': str(TRIES), 'IP': str(addr[0]), 'Hostname': str(Hostname[0]),
                          'Response Code': str('3')},
                         ignore_index=True)
                     print(df)
@@ -164,7 +164,7 @@ def get_route(hostname):
                     #Fill in start
                     #You should update your dataframe with the required column field responses here
                     df = df.append(
-                        {'Hop #': str(ttl), 'Try #': str(TRIES), 'IP': str(addr[0]), 'Hostname': str(Hostname[0]),
+                        {'Hop Count': str(ttl), 'Try': str(TRIES), 'IP': str(addr[0]), 'Hostname': str(Hostname[0]),
                          'Response Code': str('0')},
                         ignore_index=True)
                     print(df)
@@ -173,7 +173,7 @@ def get_route(hostname):
                     #Fill in start
                     #If there is an exception/error to your if statements, you should append that to your df here
                     df = df.append(
-                        {'Hop #': str(ttl), 'Try #': str(TRIES), 'IP': str(addr[0]), 'Hostname': str(Hostname[0]),
+                        {'Hop Count': str(ttl), 'Try': str(TRIES), 'IP': str(addr[0]), 'Hostname': str(Hostname[0]),
                          'Response Code': str('Error')},
                         ignore_index=True)
                     print(df)
